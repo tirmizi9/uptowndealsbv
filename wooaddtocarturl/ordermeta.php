@@ -25,7 +25,7 @@ function mjtwoo_add_custom_checkout_field( $checkout ) {
 }
 
 /*  Validate Custom Field @ WooCommerce Checkout Page */
-add_action( 'woocommerce_checkout_process', 'mjtwoo_validate_new_checkout_field' );
+// add_action( 'woocommerce_checkout_process', 'mjtwoo_validate_new_checkout_field' );
   
 function mjtwoo_validate_new_checkout_field() {    
    if ( ! $_POST['license_no'] ) {
@@ -73,4 +73,45 @@ function mjtwoo_is_external_checkout(){
 			});
 		</script>
 	<?php }
+}
+
+/* ADDING COLUMNS IN WOOCOMMERCE ADMIN ORDERS LIST */
+
+add_filter( 'manage_edit-shop_order_columns', 'mjtwoo_custom_shop_order_column', 20 );
+function mjtwoo_custom_shop_order_column($columns)
+{
+    $reordered_columns = array();
+
+    // Inserting columns to a specific location
+    foreach( $columns as $key => $column){
+        $reordered_columns[$key] = $column;
+        if( $key ==  'order_status' ){
+            // Inserting after "Status" column
+            $reordered_columns['my-column1'] = __( 'External Order','theme_domain');
+            
+        }
+    }
+    return $reordered_columns;
+}
+
+// Adding custom fields meta data for each new column (example)
+add_action( 'manage_shop_order_posts_custom_column' , 'mjtwoo_custom_orders_list_column_content', 20, 2 );
+function mjtwoo_custom_orders_list_column_content( $column, $post_id )
+{
+    switch ( $column )
+    {
+        case 'my-column1' :
+            // Get custom post meta data
+            $my_var_one = get_post_meta( $post_id, '_license_no', true );
+            if(!empty($my_var_one))
+                echo 'Direct Sale';
+
+            // Testing (to be removed) - Empty value case
+            else
+                echo '....';
+
+            break;
+
+        
+    }
 }
