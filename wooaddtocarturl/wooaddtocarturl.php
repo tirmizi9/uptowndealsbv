@@ -11,17 +11,27 @@ License: GNU Public License v3
 
 function register_wooaddtocart_submenu_page() {
     add_submenu_page( 'woocommerce', 'Add to Cart Url Page', 'Add to Cart url', 'manage_options', 'mjt_wooaddtocart_submenu_page', 'mjt_wooaddtocart_submenu_page_callback' ); 
+	
+	add_submenu_page( 'woocommerce', 'Export Order', 'Export Order', 'manage_options', 'mjt_export_order_submenu_page', 'mjt_export_order_submenu_page_callback' ); 
 }
 function mjt_wooaddtocart_submenu_page_callback() {
-	 echo '<div class="wrap"><div id="icon-options-general" class="icon32"><br></div>
-                <h2>Add to Cart Urls</h2></div>';
+	 echo '<div class="wrap">
+            <h2>Add to Cart Urls</h2>';
    include_once('importcsv.php');
+   echo '</div>';
 }
 add_action('admin_menu', 'register_wooaddtocart_submenu_page',99); 
 
 // https://wordpress.stackexchange.com/questions/101773/add-a-subitem-to-woocommerce-section
 
-include_once('ordermeta.php');
 
+function mjt_export_order_submenu_page_callback(){ 
+	echo '<div class="wrap">
+			<h2>Export Orders</h2>';
+	include_once('export-order-csv.php');
+	echo '</div>';
+}
+
+include_once('ordermeta.php');
 
 

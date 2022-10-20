@@ -69,7 +69,7 @@ function mjtwoo_is_external_checkout(){
 		<script type="text/javascript"> 
 			jQuery(document).ready(function(){
 				var extpdt = '<?php echo $extpdt ;?>';
-				jQuery('.external_product span #license_no').val('External Product');
+				jQuery('.external_product span #license_no').val('External Product'+ extpdt);
 			});
 		</script>
 	<?php }
@@ -104,11 +104,11 @@ function mjtwoo_custom_orders_list_column_content( $column, $post_id )
             // Get custom post meta data
             $my_var_one = get_post_meta( $post_id, '_license_no', true );
             if(!empty($my_var_one))
-                echo 'Direct Sale';
+                echo 'External Sale';
 
             // Testing (to be removed) - Empty value case
             else
-                echo '....';
+                echo 'Direct Sale.';
 
             break;
 

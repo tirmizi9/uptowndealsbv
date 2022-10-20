@@ -136,7 +136,7 @@ if (isset($_POST["import"])) {
 								// Get row data
 									$id   = @$line[0];
 									$name  = @$line[1];
-									$url = $domainname. 'checkout/?add-to-cart=' .$id .'&quantity=1';
+									$url = $domainname. 'checkout/?add-to-cart=' .$id .'&quantity=1&extpdt=';
 									echo '<tr><td>' .$id. '</td>
 									<td class="pname"><a title="'.$name.'" href="javascript:void(0);">' .$name. '</a></td>
 									<td><b id="mjt_'.$id.'">' . $url . '</b></td>
@@ -156,7 +156,7 @@ if (isset($_POST["import"])) {
 	enctype="multipart/form-data" onsubmit="return validateFile()">
 	<div Class="input-row">
 	<label>Domain Url </label> <input type="text" name="domainname" id="domainname"
-			class="file" value="https://uptowndealsbv.com/">
+			class="file" value="<?php echo get_bloginfo('url'); ?>/">
 		<label>Coose your file. </label> <input type="file" name="peoductList" id="file"
 			class="file" accept=".csv,.xls,.xlsx">
 		<div class="import">
